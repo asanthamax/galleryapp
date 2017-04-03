@@ -1,0 +1,223 @@
+<script type="text/javascript" src="app/assets/widgets/parsley/parsley.js"></script>
+<div ng-controller="EditCustomerController as customer">
+<div id="page-title">
+
+    <h2>{{customer.stat}} Customer</h2>
+</div>
+<div class="panel">
+
+    <div class="panel-body">
+
+        <h3 class="title-hero">{{customer.stat}} a new Customer</h3>
+    </div>
+    <div class="example-box-wrapper">
+
+        <form class="form-horizontal bordered-row" data-parsley-validate id="demo-form" method="post" ng-controller="EditCustomerController as customer" ng-submit="customer.update_customer()">
+
+            <div class="form-group">
+
+                <label class="control-label col-sm-3">First Name</label>
+                <div class="col-sm-6" ng-if="customer.stat=='update'">
+
+                    <input type="text" class="form-control" name="first_name" placeholder="Enter First Name" ng-model="customer.formData.first_name" required ng-value="customer.customer_data.first_name">
+                </div>
+                <div class="col-sm-6" ng-if="customer.stat=='delete' || customer.stat=='view'">
+
+                    <input type="text" class="form-control" name="first_name" placeholder="Enter First Name" ng-model="customer.formData.first_name" required ng-value="customer.customer_data.first_name" readonly>
+                </div>
+            </div>
+            <div class="form-group">
+
+                <label class="control-label col-sm-3">Last Name</label>
+                <div class="col-sm-6" ng-if="customer.stat=='update'">
+
+                    <input type="text" class="form-control" name="last_name" ng-model="customer.formData.last_name" placeholder="Enter Last Name" ng-value="customer.customer_data.last_name" required>
+                </div>
+                <div class="col-sm-6" ng-if="customer.stat=='delete' || customer.stat=='view'">
+
+                    <input type="text" class="form-control" name="last_name" ng-model="customer.formData.last_name" placeholder="Enter Last Name" ng-value="customer.customer_data.last_name" required readonly>
+                </div>
+            </div>
+            <div class="form-group">
+
+                <label class="control-label col-sm-3">Address</label>
+                <div class="col-sm-6" ng-if="customer.stat=='update'">
+
+                    <textarea name="address" class="form-control" ng-model="customer.formData.address" placeholder="Enter Your Address" required ng-value="customer.customer_data.address"></textarea>
+                </div>
+                <div class="col-sm-6" ng-if="customer.stat=='delete' || customer.stat=='view'">
+
+                    <textarea name="address" class="form-control" ng-model="customer.formData.address" placeholder="Enter Your Address" required ng-value="customer.customer_data.address" readonly></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+
+                <label class="control-label col-sm-3">Email</label>
+                <div class="col-sm-6" ng-if="customer.stat=='update'">
+
+                    <input type="email" class="form-control" data-parsley-type="email" ng-model="customer.formData.email" name="email" ng-value="customer.customer_data.email" placeholder="Enter email" required>
+                </div>
+                <div class="col-sm-6" ng-if="customer.stat=='delete' || customer.stat=='view'">
+
+                    <input type="email" class="form-control" data-parsley-type="email" ng-model="customer.formData.email" name="email" ng-value="customer.customer_data.email" placeholder="Enter email" required readonly>
+                </div>
+            </div>
+            <div class="form-group">
+
+                <label class="control-label col-sm-3" >Mobile</label>
+                <div class="col-sm-6" ng-if="customer.stat=='update'">
+
+                    <input type="text" class="form-control" ng-model="customer.formData.mobile" ng-value="customer.customer_data.mobile" data-parsley-minlength="10" data-parsley-maxlength="10" data-parsley-type="digits" name="mobile" placeholder="Enter Mobile No" required>
+                </div>
+                <div class="col-sm-6" ng-if="customer.stat=='delete' || customer.stat=='view'">
+
+                    <input type="text" class="form-control" ng-model="customer.formData.mobile" ng-value="customer.customer_data.mobile" data-parsley-minlength="10" data-parsley-maxlength="10" data-parsley-type="digits" name="mobile" placeholder="Enter Mobile No" required readonly>
+                </div>
+            </div>
+            <div class="form-group">
+
+                <label class="control-label col-sm-3">Facebook URL</label>
+                <div class="col-sm-6" ng-if="customer.stat=='update'">
+
+                    <input type="text" class="form-control" name="fburl" ng-model="customer.formData.facebookUrl" ng-value="customer.customer_data.facebookUrl" data-parsley-urlstrict placeholder="Enter Facebook URL">
+                </div>
+                <div class="col-sm-6" ng-if="customer.stat=='delete' || customer.stat=='view'">
+
+                    <input type="text" class="form-control" name="fburl" ng-model="customer.formData.facebookUrl" ng-value="customer.customer_data.facebookUrl" data-parsley-urlstrict placeholder="Enter Facebook URL" readonly>
+                </div>
+            </div>
+            <div class="form-group">
+
+                <label class="control-label col-sm-3">Twitter URL</label>
+                <div class="col-sm-6" ng-if="customer.stat=='update'">
+
+                    <input type="text" class="form-control" name="twitterurl" ng-model="customer.formData.twitterUrl" ng-value="customer.customer_data.twitterUrl" data-parsley-urlstrict placeholder="Enter Twitter URL">
+                </div>
+                <div class="col-sm-6" ng-if="customer.stat=='delete' || customer.stat=='view'">
+
+                    <input type="text" class="form-control" name="twitterurl" ng-model="customer.formData.twitterUrl" ng-value="customer.customer_data.twitterUrl" data-parsley-urlstrict placeholder="Enter Twitter URL" readonly>
+                </div>
+            </div>
+            <div class="form-group">
+
+                <label class="control-label col-sm-3">Google Plus URL</label>
+                <div class="col-sm-6" ng-if="customer.stat=='update'">
+
+                    <input type="text" class="form-control" name="plusurl" ng-model="customer.formData.plusUrl" ng-value="customer.customer_data.plusUrl" data-parsley-urlstrict placeholder="Enter G+ URL">
+                </div>
+                <div class="col-sm-6" ng-if="customer.stat=='delete' || customer.stat=='view'">
+
+                    <input type="text" class="form-control" name="plusurl" ng-model="customer.formData.plusUrl" ng-value="customer.customer_data.plusUrl" data-parsley-urlstrict placeholder="Enter G+ URL" readonly>
+                </div>
+            </div>
+            <div class="form-group">
+
+                <label class="control-label col-sm-3">Select Layout</label>
+                <div class="col-sm-6">
+
+                    <select class="form-control" name="layout" ng-model="customer.formData.layout" required ng-value="customer.customer_data.layout">
+
+                        <option value="layout1">Layout 1</option>
+                        <option value="layout2">Layout 2</option>
+                        <option value="layout3">Layout 3</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+
+                <label class="control-label col-sm-3">Description</label>
+                <div class="col-sm-6">
+
+                    <textarea class="form-control" name="description" ng-model="customer.formData.description" required ng-value="customer.customer_data.description"></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+
+                <label class="control-label col-sm-3">Cover Photo</label>
+                <div class="col-sm-6" ng-if="customer.stat=='update'">
+
+                    <div class="fileinput fileinput-new" data-provides="fileinput">
+                        <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;">
+
+                            <img style="width:200px;height: 150px" ngf-thumbnail="customer.cover_photo || 'app/uploads/{{customer.customer_data.cover_photo}}'" src="app/uploads/{{customer.customer_data.cover_photo}}"/>
+                        </div>
+                        <div>
+                                <span class="btn btn-default btn-file">
+                                    <span class="fileinput-new">Select Cover Photo</span>
+                                    <span class="fileinput-exists">Change</span>
+                                    <input type="file" ngf-select name="cover_photo" ngf-pattern="'image/*'" accept="image/*" ngf-max-size="5MB" ng-model="customer.cover_photo">
+                                </span>
+                            <i ng-show="magazine.upload.file.$error.required">*required</i><br>
+                            <i ng-show="magazine.upload.file.$error.maxSize">File too large
+                                {{up.file.size / 1000000|number:1}}MB: max 5M</i>
+                            <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6" ng-if="customer.stat=='delete' || customer.stat=='view'">
+
+                    <div class="fileinput fileinput-new" data-provides="fileinput">
+
+                        <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;">
+
+                            <img style="width:200px;height: 150px" src="app/uploads/{{customer.customer_data.cover_photo}}"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+
+                <label class="control-label col-sm-3">Profile Picture</label>
+                <div class="col-sm-6" ng-if="customer.stat=='update'">
+
+                    <div class="fileinput fileinput-new" data-provides="fileinput">
+                        <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;">
+
+                            <img style="width:200px;height: 150px" ngf-thumbnail="customer.profile_picture || 'app/uploads/{{customer.customer_data.profile_picture}}'"/>
+                        </div>
+                        <div>
+                                <span class="btn btn-default btn-file">
+                                    <span class="fileinput-new">Select Cover Photo</span>
+                                    <span class="fileinput-exists">Change</span>
+                                    <input type="file" ngf-select name="profile_picture" ngf-pattern="'image/*'" accept="image/*" ngf-max-size="5MB" ng-model="customer.profile_picture">
+                                </span>
+                            <i ng-show="magazine.upload.file.$error.required">*required</i><br>
+                            <i ng-show="magazine.upload.file.$error.maxSize">File too large
+                                {{up.file.size / 1000000|number:1}}MB: max 5M</i>
+                            <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6" ng-if="customer.stat=='delete' || customer.stat=='view'">
+
+                    <div class="fileinput fileinput-new" data-provides="fileinput">
+
+                        <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;">
+
+                            <img style="width:200px;height: 150px" src="app/uploads/{{customer.customer_data.profile_picture}}"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <input type="hidden" name="old_cover_photo" ng-model="customer.formData.old_cover_photo" ng-value="customer.customer_data.cover_photo">
+            <input type="hidden" name="old_profile_picture" ng-model="customer.formData.old_profile_picture" ng-value="customer.customer_data.profile_picture">
+            <input type="hidden" name="cus_id" ng-model="customer.formData.cus_id" ng-value="customer.customer_data.cus_id">
+            <input type="hidden" name="status" ng-model="customer.formData.status" ng-value="customer.customer_data.status">
+            <div class="col-sm-offset-3 col-sm-6">
+
+                <button class="btn btn-primary">{{customer.button_text}}</button>
+                <button class="btn btn-default" type="reset">Reset</button>
+            </div>
+        </form>
+    </div>
+</div>
+</div>
+<script>
+    window.ParsleyValidator
+        .addValidator('urlstrict', function (value, requirement){
+            var regExp = /^(https?|s?ftp|git):\/\/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/i;
+
+            return '' !== value ? regExp.test( value ) : false;
+        }, 32)
+        .addMessage('en', 'urlstrict', 'Must be a valid URL');
+</script>

@@ -1,0 +1,67 @@
+<div class="col-md-6">
+
+    <div class="panel">
+        <div class="panel-body">
+            <h3 class="title-hero"><b>Latest Magazines</b></h3>
+            <div class="example-box-wrapper">
+
+                <table datatable="ng" class="table table-bordered table-striped">
+                    <thead>
+
+                    <th>Title</th>
+                    <th>Cover Photo</th>
+                    <th>Magazine</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="each in main.magazines">
+                        <td>{{each.title}}</td>
+                        <td><img src="app/uploads/{{each.cover_image}}" height="60" width="60"></td>
+                        <td><a href="app/uploads/{{each.document}}" target="_blank" download><img src="app/uploads/pdficon.jpg" height="60" width="60"></a></td>
+                        <td><span class="bs-label label-warning" ng-if="each.status=='unpublished'">{{each.status}}</span>
+                            <span class="bs-label label-success" ng-if="each.status=='published'">{{each.status}}</span>
+                        </td>
+                        <td>
+                            <a class="btn btn-sm btn-warning" href="/edit_magazine/{{each.magazineID}}/update"><i class="glyph-icon icon-pencil"></i></a>
+                            <a class="btn btn-sm btn-danger" href="/remove_magazine/{{each.magazineID}}/delete"><i class="glyph-icon icon-trash-o"></i></a>
+                            <a class="btn btn-sm btn-default" href="/view_magazine/{{each.magazineID}}/view"><i class="glyph-icon icon-eye"></i></a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-6">
+    <div class="panel">
+        <div class="panel-body">
+            <h3 class="title-hero"><b>New Customers</b></h3>
+            <div class="example-box-wrapper">
+
+                <table datatable="ng" dt-options="find_customer.dtOptions" dt-columns="find_customer.dtColumns" class="table table-bordered table-striped">
+                    <thead>
+
+                    <th>First Name</th>
+                    <th>Mobile</th>
+                    <th>Email</th>
+                    <th>Action</th>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="each in main.customers">
+                        <td>{{each.first_name}}</td>
+                        <td>{{each.mobile}}</td>
+                        <td>{{each.email}}</td>
+                        <td>
+                            <a class="btn btn-sm btn-warning" href="/edit_customer/{{each.customerID}}/update"><i class="glyph-icon icon-pencil"></i></a>
+                            <a class="btn btn-sm btn-danger" href="/remove_customer/{{each.customerID}}/delete"><i class="glyph-icon icon-trash-o"></i></a>
+                            <a class="btn btn-sm btn-default" href="/view_customer/{{each.customerID}}/view"><i class="glyph-icon icon-eye"></i></a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

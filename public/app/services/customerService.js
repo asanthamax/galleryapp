@@ -1,0 +1,76 @@
+/**
+ * Created by asantha on 3/22/2017.
+ */
+angular.module('customerService',[])
+
+.factory('Customer',function ($http) {
+
+    var customerFactory = {};
+
+    customerFactory.all_customers = function () {
+
+        return $http.get('/api/all_customers');
+    };
+
+    customerFactory.add_customer = function(customerData){
+
+        return $http.post('/api/save_customer', customerData);
+    };
+
+    customerFactory.edit_customer = function(customerData){
+
+        return $http.post('/api/edit_customer', customerData);
+    };
+
+    customerFactory.find_customers = function (customerData) {
+
+        return $http.post('/api/find_conditional_customers',customerData);
+    };
+
+    customerFactory.delete_customer = function (customerData) {
+
+        return $http.post('/api/remove_customer', customerData)
+    };
+
+    customerFactory.get_customer = function(customerData){
+
+        return $http.get('/api/find_customer', {params: customerData});
+    }
+
+    return customerFactory;
+})
+
+.factory('cussocketio',function($rootScope){
+
+   var socket = io.connect();
+   return{
+
+       on:function (eventName, callback) {
+
+           socket.on(eventName,function () {
+
+               var args = arguments;
+               $rootScope.$apply(function () {
+
+                   callback.apply(socket, args);
+               })
+           })
+       },
+
+       emit:function (eventName,data, callback) {
+
+
+           socket.emit(eventName, data, function () {
+
+               var args = arguments;
+               $rootScope.apply(function () {
+
+                   if (callback) {
+
+                       callback.apply(socket, args);
+                   }
+               })
+           })
+       }
+   }
+});

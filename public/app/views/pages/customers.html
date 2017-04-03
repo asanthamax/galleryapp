@@ -1,0 +1,79 @@
+<div id="page-title">
+
+    <h2>List of All Customers</h2>
+</div>
+<div class="panel" ng-controller="CustomerFindController as find_customer">
+
+    <div class="panel-body">
+        <h3 class="title-hero">Search for Customers</h3>
+    </div>
+    <div class="example-box-wrapper">
+
+        <form class="form-horizontal bordered-row" method="post"  ng-submit="find_customer.editCutomer()">
+
+            <div class="form-group">
+
+                <label class="col-sm-3 control-label">First Name</label>
+                <div class="col-sm-6">
+                    <select name="fname" class="form-control" ng-model="find_customer.formData.first_name">
+                        <option value="" selected>Select First Name</option>
+                        <option ng-repeat="details in find_customer.dropdown_data" value="{{details.first_name}}">{{details.first_name}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+
+                <label class="col-sm-3 control-label">Last Name</label>
+                <div class="col-sm-6">
+                    <select name="lname" class="form-control" ng-model="find_customer.formData.last_name">
+                        <option value="" selected>Select First Name</option>
+                        <option ng-repeat="details in find_customer.dropdown_data" value="{{details.last_name}}">{{details.last_name}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+
+                <label class="col-sm-3 control-label">Email</label>
+                <div class="col-sm-6">
+                    <select name="email" class="form-control" ng-model="find_customer.formData.email">
+                        <option value="" selected>Select Last Name</option>
+                        <option ng-repeat="details in find_customer.dropdown_data" value="{{details.email}}">{{details.email}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-3 col-sm-6">
+                    <button class="btn btn-primary" type="submit"><i class="glyph-icon icon-search"></i> Search</button>
+                </div>
+            </div>
+        </form>
+        <div class="pull-right"><a class="btn btn-success" href="/add_customer"><i class="glyph-icon icon-plus"></i> Add Customer</a></div>
+    </div>
+    <div class="example-box-wrapper">
+        <table datatable="ng" dt-options="find_customer.dtOptions" dt-columns="find_customer.dtColumns" class="table table-bordered table-striped">
+            <thead>
+
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Address</th>
+            <th>Mobile</th>
+            <th>Email</th>
+            <th>Action</th>
+            </thead>
+            <tbody>
+                <tr ng-repeat="each in customer.customers">
+                    <td>{{each.first_name}}</td>
+                    <td>{{each.last_name}}</td>
+                    <td>{{each.address}}</td>
+                    <td>{{each.mobile}}</td>
+                    <td>{{each.email}}</td>
+                    <td>
+                        <a class="btn btn-sm btn-warning" href="/edit_customer/{{each.customerID}}/update"><i class="glyph-icon icon-pencil"></i></a>
+                        <a class="btn btn-sm btn-danger" href="/remove_customer/{{each.customerID}}/delete"><i class="glyph-icon icon-trash-o"></i></a>
+                        <a class="btn btn-sm btn-default" href="/view_customer/{{each.customerID}}/view"><i class="glyph-icon icon-eye"></i></a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
