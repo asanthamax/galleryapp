@@ -15,7 +15,7 @@
                     <th>Action</th>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="each in main.magazines">
+                    <tr ng-repeat="each in main.magazines" ng-controller="MainController as main">
                         <td>{{each.title}}</td>
                         <td><img src="app/uploads/{{each.cover_image}}" height="60" width="60"></td>
                         <td><a href="app/uploads/{{each.document}}" target="_blank" download><img src="app/uploads/pdficon.jpg" height="60" width="60"></a></td>
@@ -49,7 +49,7 @@
                     <th>Action</th>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="each in main.customers">
+                    <tr ng-repeat="each in main.customers" ng-controller="MainController as main">
                         <td>{{each.first_name}}</td>
                         <td>{{each.mobile}}</td>
                         <td>{{each.email}}</td>

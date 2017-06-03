@@ -6,6 +6,7 @@ angular.module('magazineCtrl',['magazineService','ngFileUpload'])
     .controller('MagazineController',function ($location,Upload, Magazine, magsocketio) {
 
         var vm = this;
+        var token = localStorage.getItem("access_web_token").toString();
         var status_upload_image = false;
         var status_upload_doc = false;
         var requestData={
@@ -15,7 +16,7 @@ angular.module('magazineCtrl',['magazineService','ngFileUpload'])
             document: ""
         };
 
-        Magazine.all_magazines()
+        Magazine.all_magazines(token)
             .then(function (data) {
 
                 vm.magazines = data.data;
@@ -33,6 +34,7 @@ angular.module('magazineCtrl',['magazineService','ngFileUpload'])
             Upload.upload({
 
                 url: 'http://localhost:3000/api/upload_magazines',
+                headers: {'x-access-token' : token},
                 data:{file: file}
             }).then(function (resp) {
 
@@ -77,7 +79,7 @@ angular.module('magazineCtrl',['magazineService','ngFileUpload'])
             requestData.title = vm.title;
             requestData.status = vm.status;
             console.log(requestData);
-            Magazine.add_magazine(requestData)
+            Magazine.add_magazine(requestData,token)
                 .then(function (data) {
 
                     vm.message = data.data.message;
@@ -99,13 +101,14 @@ angular.module('magazineCtrl',['magazineService','ngFileUpload'])
     .controller('EditMagazineController',['$location','$scope','Upload','$routeParams','Magazine',function ($location,$scope,Upload, $routeParams, Magazine) {
 
         var vm = this;
+        var token = localStorage.getItem("access_web_token").toString();
         var status_upload_image_edit = false;
         var status_upload_doc_edit = false;
         vm.stat = $routeParams.status;
         var para={};
         para.mag_id = $routeParams.id;
         console.log(para);
-        Magazine.get_magazine(para)
+        Magazine.get_magazine(para,token)
             .then(function (data) {
 
                 vm.magazine_data = data.data;
@@ -142,7 +145,7 @@ angular.module('magazineCtrl',['magazineService','ngFileUpload'])
                     vm.save_magazine(vm.magazine);
                 if(!vm.cover_image && !vm.magazine){
 
-                    Magazine.edit_magazine(vm.magazine_edit)
+                    Magazine.edit_magazine(vm.magazine_edit,token)
                         .then(function(data)
                             {
                                 vm.formData = '';
@@ -159,7 +162,7 @@ angular.module('magazineCtrl',['magazineService','ngFileUpload'])
 
             }else if(status=='delete'){
 
-                Magazine.delete_magazine(vm.magazine_data)
+                Magazine.delete_magazine(vm.magazine_data,token)
                     .then(function(data)
                         {
                             vm.formData = '';
@@ -183,6 +186,7 @@ angular.module('magazineCtrl',['magazineService','ngFileUpload'])
             Upload.upload({
 
                 url: 'http://localhost:3000/api/update_magazines_upload',
+                headers: {'x-access-token' : token},
                 data:{file: file,old_image: vm.magazine_data.cover_image,old_document: vm.magazine_data.document}
             }).then(function (resp) {
 

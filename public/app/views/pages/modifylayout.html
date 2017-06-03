@@ -1,10 +1,139 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<script type="text/javascript" src="app/assets/widgets/parsley/parsley.js"></script>
+<div id="page-title">
 
-</body>
-</html>
+    <h2>Edit  Layout</h2>
+</div>
+<div class="panel">
+
+    <div class="panel-body">
+
+        <h3 class="title-hero">{{edit_layout.stat}} Layout</h3>
+    </div>
+    <div class="example-box-wrapper">
+
+        <form class="form-horizontal bordered-row" data-parsley-validate id="demo-form" method="post" ng-controller="EditLayoutCtrl as layout" ng-submit="layout.create_layout()">
+
+            <div class="form-group">
+
+                <label class="control-label col-sm-3">Select Customer</label>
+                <div class="col-sm-6">
+
+                    <select class="form-control" name="customer" ng-model="layout.formData.customer" ng-value="layout.layout_data.customer" required ng-options="source.first_name for source in customers track by source.customerID">
+
+                        <option value="" selected>Select Customer</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+
+                <label class="control-label col-sm-3">Layout Type</label>
+                <div class="col-sm-6">
+
+                    <select class="form-control" name="layout_type" ng-change="layout.update_content();" ng-value="layout.layout_data.layout_type" ng-model="layout.formData.layout_type" required>
+
+                        <option value="layout1">Layout 1</option>
+                        <option value="layout2">Layout 2</option>
+                        <option value="layout3">Layout 3</option>
+                        <option value="layout4">Layout 4</option>
+                        <option value="layout5">Layout 5</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+
+                <label class="control-label col-sm-3">Select Category</label>
+                <div class="col-sm-6">
+
+                    <select class="form-control" name="category" ng-model="layout.formData.category" ng-value="layout.layout_data.category" required ng-options="source.name for source in categoryList track by source.value">
+
+                        <option value="">Select Category</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+
+                <label class="control-label col-sm-3">Select Sub Category</label>
+                <div class="col-sm-6">
+
+                    <select class="form-control" name="subcategory" ng-model="layout.formData.subcategory" ng-value="layout.layout_data.subcategory" required ng-options="item.name for item in layout.formData.category.subcategory track by item.value">
+
+                        <option value="">Select Sub Category</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+
+                <label class="control-label col-sm-3">Select Expire Date</label>
+                <div class="col-sm-6">
+
+                  <input type="date" class="form-control" ng-model="layout.formData.expire_date" ng-value="layout.layout_data.expire_date">
+                </div>
+            </div>
+            <div class="form-group">
+
+                <label class="control-label col-sm-3">Upload Images</label>
+                <div class="col-sm-6">
+                    <p style="color: red;">{{image_msg}}</p>
+                    <br>
+                    <div class="fileinput fileinput-new" data-provides="fileinput">
+                        <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;" ng-repeat="img in layout.layout_data.images">
+
+                            <img style="width:200px;height: 150px" ng-src="app/uploads/{{img}}"/>
+                        </div>
+                        <div>
+                            <span class="btn btn-default btn-file">
+                                <span class="fileinput-new">Select Images</span>
+                                <span class="fileinput-exists">Change</span>
+                                <input type="file" id="nbr_images" ngf-select name="cover_photo" ngf-pattern="'image/*'" accept="image/*" ngf-max-size="5MB" ng-model="customer.cover_photo" ngf-multiple="true" ng-max-files="layout.formData.layout_type=='layout1' ? 5 : layout.formData.layout_type=='layout2' ? 7 : layout.formData.layout_type=='layout3' ? 10 : layout.formData.layout_type=='layout4' ? 5 : 10" ngf-keep="true">
+                            </span>
+                            <i ng-show="layout.upload.file.$error.required">*required</i><br>
+                            <i ng-show="layout.upload.file.$error.maxFiles">Exceed maximum files allowed</i>
+                            <i ng-show="magazine.upload.file.$error.maxSize">File too large
+                                {{up.file.size / 1000000|number:1}}MB: max 5M</i>
+                            <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" ng-hide="maximum_images=='layout1'||maximum_images=='layout2'||maximum_images=='layout3'" ng-show="maximum_images=='layout4'||maximum_images=='layout5'">
+
+                <label class="control-label col-sm-3">You tube Video URL</label>
+                <div class="col-sm-6">
+
+                    <input type="text" class="form-control" ng-model="layout.formData.video" placeholder="Enter youtube video url" ng-value="layout.layout_data.video_url">
+                    <!--<div class="fileinput fileinput-new" data-provides="fileinput">
+                        <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;">
+
+                            <img style="width:200px;height: 150px" ngf-thumbnail="customer.profile_picture || ''"/>
+                        </div>
+                        <div>
+                                <span class="btn btn-default btn-file">
+                                    <span class="fileinput-new">Select Videos</span>
+                                    <span class="fileinput-exists">Change</span>
+                                    <input type="file" ngf-select name="profile_picture" ngf-pattern="'image/*'" accept="image/*" ngf-max-size="5MB" ng-model="customer.profile_picture">
+                                </span>
+                            <i ng-show="magazine.upload.file.$error.required">*required</i><br>
+                            <i ng-show="magazine.upload.file.$error.maxSize">File too large
+                                {{up.file.size / 1000000|number:1}}MB: max 5M</i>
+                            <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+                        </div>
+                    </div>-->
+                </div>
+            </div>
+            <div class="col-sm-offset-3 col-sm-6">
+
+                <button class="btn btn-primary">Edit Layout</button>
+                <button class="btn btn-default" type="reset">Reset</button>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    window.ParsleyValidator
+        .addValidator('urlstrict', function (value, requirement){
+            var regExp = /^(https?|s?ftp|git):\/\/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/i;
+
+            return '' !== value ? regExp.test( value ) : false;
+        }, 32)
+        .addMessage('en', 'urlstrict', 'Must be a valid URL');
+</script>

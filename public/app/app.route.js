@@ -3,8 +3,12 @@ angular.module('appRoute',['ngRoute'])
 .config(function($routeProvider, $locationProvider){
 
 	$routeProvider
-	
-		.when('/', {
+
+        .when('/',{
+
+            templateUrl: 'app/views/pages/login.html'
+        })
+		.when('/dashboard', {
 			
 			templateUrl: 'app/views/pages/dashboard.html',
 			controller: 'MainController',
@@ -13,11 +17,11 @@ angular.module('appRoute',['ngRoute'])
 
                 magazines:function (Magazine) {
 
-                    return Magazine.all_magazines();
+                    return Magazine.all_magazines(localStorage.getItem("access_web_token").toString());
                 },
                 customers:function(Customer){
 
-                    return Customer.all_customers();
+                    return Customer.all_customers(localStorage.getItem("access_web_token").toString());
                 }
             }
 		})
@@ -30,7 +34,7 @@ angular.module('appRoute',['ngRoute'])
 
 				magazines:function (Magazine) {
 
-					return Magazine.all_magazines();
+					return Magazine.all_magazines(localStorage.getItem("access_web_token").toString());
                 }
 			}
 		})
@@ -47,7 +51,7 @@ angular.module('appRoute',['ngRoute'])
 
 			    customers:function(Customer){
 
-			        return Customer.all_customers();
+			        return Customer.all_customers(localStorage.getItem("access_web_token").toString());
                 }
             }
 		})

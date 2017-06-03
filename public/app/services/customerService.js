@@ -7,34 +7,34 @@ angular.module('customerService',[])
 
     var customerFactory = {};
 
-    customerFactory.all_customers = function () {
+    customerFactory.all_customers = function (token) {
 
-        return $http.get('/api/all_customers');
+        return $http.get('/api/all_customers',{headers: {'x-access-token' : token}});
     };
 
-    customerFactory.add_customer = function(customerData){
+    customerFactory.add_customer = function(customerData,token){
 
-        return $http.post('/api/save_customer', customerData);
+        return $http.post('/api/save_customer', customerData,{headers: {'x-access-token' : token}});
     };
 
-    customerFactory.edit_customer = function(customerData){
+    customerFactory.edit_customer = function(customerData,token){
 
-        return $http.post('/api/edit_customer', customerData);
+        return $http.post('/api/edit_customer', customerData,{headers: {'x-access-token' : token}});
     };
 
-    customerFactory.find_customers = function (customerData) {
+    customerFactory.find_customers = function (customerData,token) {
 
-        return $http.post('/api/find_conditional_customers',customerData);
+        return $http.post('/api/find_conditional_customers',customerData,{headers: {'x-access-token' : token}});
     };
 
-    customerFactory.delete_customer = function (customerData) {
+    customerFactory.delete_customer = function (customerData,token) {
 
-        return $http.post('/api/remove_customer', customerData)
+        return $http.post('/api/remove_customer', customerData,{headers: {'x-access-token' : token}})
     };
 
-    customerFactory.get_customer = function(customerData){
+    customerFactory.get_customer = function(customerData,token){
 
-        return $http.get('/api/find_customer', {params: customerData});
+        return $http.get('/api/find_customer',{headers: {'x-access-token' : token},params: customerData});
     }
 
     return customerFactory;

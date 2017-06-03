@@ -6,6 +6,7 @@ angular.module('customerCtrl',['customerService'])
     .controller('CustomerController',function ($location,Upload, Customer, cussocketio) {
 
         var vm = this;
+        var token = localStorage.getItem('access_web_token').toString();
         var file_add = false;
         var requestData={
             first_name: "",
@@ -19,12 +20,13 @@ angular.module('customerCtrl',['customerService'])
             layout: "",
             description: "",
             cover_photo: "",
-            profile_picture: ""
+            profile_picture: "",
+            token: localStorage.getItem('access_web_token').toString()
         };
         var cover_photo_add = false;
         var profile_picture = false;
         //vm.customers = [];
-        Customer.all_customers()
+        Customer.all_customers(token)
             .then(function (data) {
 
                 vm.customers = data.data;
@@ -41,6 +43,7 @@ angular.module('customerCtrl',['customerService'])
             Upload.upload({
 
                 url: 'http://localhost:3000/api/upload_customers',
+                headers: {'x-access-token' : token},
                 data:{file: file,type: type}
             }).then(function (resp) {
 
@@ -90,7 +93,7 @@ angular.module('customerCtrl',['customerService'])
             requestData.twitterUrl = vm.formData.twitterurl;
             requestData.plusUrl =  vm.formData.plusurl;
             requestData.description = vm.formData.description;
-            Customer.add_customer(requestData)
+            Customer.add_customer(requestData,token)
                 .then(function(data)
                     {
                         vm.formData = '';
@@ -128,8 +131,9 @@ angular.module('customerCtrl',['customerService'])
     .controller('CustomerFindController',function (Customer, cussocketio, DTOptionsBuilder, DTColumnBuilder) {
 
         var vm = this;
+        var token = localStorage.getItem('access_web_token').toString();
         vm.editCutomer = function() {
-            Customer.find_customers(vm.formData)
+            Customer.find_customers(vm.formData,token)
                 .then(function (data) {
 
                     var cust_dataload = JSON.stringify(data.data);
@@ -149,7 +153,7 @@ angular.module('customerCtrl',['customerService'])
                     console.log(fallback);
                 })
         };
-        Customer.all_customers()
+        Customer.all_customers(token)
             .then(function (data) {
 
                 vm.dropdown_data = data.data;
@@ -169,11 +173,12 @@ angular.module('customerCtrl',['customerService'])
 
         var vm = this;
         vm.stat = $routeParams.status;
+        var token = localStorage.getItem('access_web_token').toString();
         var para={};
         var status_upload_profile_edit = false;
         var status_upload_cover_edit = false;
         para.cus_id = $routeParams.id;
-        Customer.get_customer(para)
+        Customer.get_customer(para,token)
             .then(function (data) {
 
                 vm.customer_data = data.data;
@@ -216,7 +221,7 @@ angular.module('customerCtrl',['customerService'])
                   //  vm.customer_edit.facebookUrl = vm.customer_edit.fburl;
                   //  vm.customer_edit.twitterUrl = vm.customer_edit.twitterurl;
                   //  vm.customer_edit.plusUrl = vm.customer_edit.plusurl;
-                    Customer.edit_customer(vm.customer_edit)
+                    Customer.edit_customer(vm.customer_edit,token)
                         .then(function(data)
                             {
                                 vm.formData = '';
@@ -233,7 +238,7 @@ angular.module('customerCtrl',['customerService'])
 
             }else if(status=='delete'){
 
-                Customer.delete_customer(vm.customer_data)
+                Customer.delete_customer(vm.customer_data,token)
                     .then(function(data)
                         {
                             vm.formData = '';
@@ -258,6 +263,7 @@ angular.module('customerCtrl',['customerService'])
             Upload.upload({
 
                 url: 'http://localhost:3000/api/update_customer_upload',
+                headers: {'x-access-token' : token},
                 data:{file: file,old_cover_photo: vm.customer_data.old_cover_photo,old_profile_picture: vm.customer_data.old_profile_picture,type: type}
             }).then(function (resp) {
 

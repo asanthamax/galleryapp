@@ -55,7 +55,9 @@ app.use(function(req, res, next){
 app.use(express.static(__dirname+'/public'))
 
 var api = require('./app/routes/api')(app, express, io, upload, fs);
+var mobile_api = require('./app/routes/mobile_api')(app, express, io, upload, fs);
 app.use('/api', api);
+app.use('/mobile_api',mobile_api);
 
 
 app.get('*',function(req, res){

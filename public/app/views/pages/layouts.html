@@ -2,7 +2,7 @@
 
     <h2>Layouts</h2>
 </div>
-<div class="panel">
+<div class="panel" ng-controller="AllLayoutCtrl as layout">
 
     <div class="panel-body">
         <h3 class="title-hero">Search for Layouts</h3>
@@ -47,7 +47,7 @@
     </div>
     <div class="example-box-wrapper">
 
-        <table datatable="" class="table table-bordered table-striped">
+        <table datatable="ng" dt-options="layout.dtOptions" dt-columns="layout.dtColumns" class="table table-bordered table-striped">
             <thead>
             <th>Layout ID</th>
             <th>Layout Type</th>
@@ -56,7 +56,17 @@
             <th>Action</th>
             </thead>
             <tbody>
-
+              <tr ng-repeat="each in layout.layouts">
+                <td>{{each.layoutID}}</td>
+                <td>{{each.layout_type}}</td>
+                <td>{{each.category}}</td>
+                <td>{{each.subcategory}}</td>
+                <td>
+                  <a class="btn btn-sm btn-warning" href="/edit_layout/{{each.layoutID}}/update"><i class="glyph-icon icon-pencil"></i></a>
+                  <a class="btn btn-sm btn-danger" href="/remove_layout/{{each.layoutID}}/delete"><i class="glyph-icon icon-trash-o"></i></a>
+                  <a class="btn btn-sm btn-default" href="/view_layout/{{each.layoutID}}/view"><i class="glyph-icon icon-eye"></i></a>
+                </td>
+              </tr>
             </tbody>
         </table>
     </div>

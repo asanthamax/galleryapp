@@ -7,44 +7,44 @@ angular.module('magazineService',[])
 
     var magazineFactory = {};
 
-    magazineFactory.all_magazines = function () {
+    magazineFactory.all_magazines = function (token) {
 
-        return $http.get('api/all_magazines');
+        return $http.get('api/all_magazines',{headers: {'x-access-token' : token}});
     };
 
-    magazineFactory.upload_magazine = function (magazineData) {
+    magazineFactory.upload_magazine = function (magazineData,token) {
 
 
-        return $http.post('api/upload_magazines', magazineData).then(function (result) {
+        return $http.post('api/upload_magazines', magazineData,{headers: {'x-access-token' : token}}).then(function (result) {
 
             return result;
         });
     };
 
-    magazineFactory.add_magazine = function (magazineData) {
+    magazineFactory.add_magazine = function (magazineData,token) {
 
-        return $http.post('api/add_magazines', magazineData);
+        return $http.post('api/add_magazines', magazineData,{headers: {'x-access-token' : token}});
     };
 
-    magazineFactory.update_upload_magazine = function(magazineData){
+    magazineFactory.update_upload_magazine = function(magazineData,token){
 
-        return $http.post('api/update_magazines_upload',magazineData);
+        return $http.post('api/update_magazines_upload',magazineData,{headers: {'x-access-token' : token}});
     };
 
-    magazineFactory.edit_magazine = function(magazineData){
+    magazineFactory.edit_magazine = function(magazineData,token){
 
-        return $http.post('api/update_magazine', magazineData);
+        return $http.post('api/update_magazine', magazineData,{headers: {'x-access-token' : token}});
     };
 
-    magazineFactory.delete_magazine = function (magazineData) {
+    magazineFactory.delete_magazine = function (magazineData,token) {
 
-        return $http.post('api/delete_magazine', magazineData);
+        return $http.post('api/delete_magazine', magazineData,{headers: {'x-access-token' : token}});
     };
 
-    magazineFactory.get_magazine = function (magazineData) {
+    magazineFactory.get_magazine = function (magazineData,token) {
 
         console.log(magazineData);
-        return $http.get('api/find_conditional_magazine', {params: magazineData});
+        return $http.get('api/find_conditional_magazine', {headers: {'x-access-token' : token},params: magazineData});
     };
 
     return magazineFactory;

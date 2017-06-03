@@ -6,6 +6,8 @@ var Customer = require('../models/customer');
 
 var Magazines = require('../models/magazines');
 
+var Layout = require('../models/layouts');
+
 var config = require('../../config');
 
 var secretKey = config.secretKey;
@@ -56,6 +58,84 @@ module.exports = function(app, express, io, upload, fs){
 			
 
 		});
+
+	api.route('/signup').post(function(req,res){
+
+	   var user = new User({
+
+	       name: req.body.name,
+           username: req.body.username,
+           password: req.body.password
+       });
+	   user.save(function (err, newUser) {
+
+	       console.log(err);
+	       if(err){
+
+	           res.send(err);
+	           return;
+           }
+           res.json({message: "New User Added Successfully"});
+       })
+    });
+
+	api.route('/login').post(function(req,res){
+
+	   User.findOne({
+
+	       username: req.headers['username']
+       }).select('password').exec(function (err,user) {
+
+           if(err)
+               throw err;
+
+           if(!user){
+
+               res.send({message: "Invalid User!"});
+           }else if(user){
+
+              // console.log("User:"+user);
+               var validPassword = user.comparePasswords(req.headers['password']);
+             //  console.log("Pass:"+validPassword);
+               if(!validPassword){
+
+                   res.send({message: "Invalid Password"});
+               }else{
+
+                   var token = createToken(user);
+                   res.send({
+
+                       success: true,
+                       message: "Successfully logged in!",
+                       token: token
+                   });
+               }
+           }
+        })
+    });
+
+	api.use(function(req,res,next){
+
+	   console.log("Client Application requesting the service...");
+	   var token = req.body.token || req.headers['x-access-token'];
+	   if(token){
+
+	       jsonwebtoken.verify(token,secretKey,function (err, decoded) {
+
+	           if(err){
+
+	               res.status(403).send({success: false,message: "Invalid token!!!"});
+               }else{
+
+	               req.decoded = decoded;
+	               next();
+               }
+           })
+       }else{
+
+	       res.status(403).send({success: false,message: "No Token Provided!"});
+       }
+    });
 
 	api.route('/save_customer').post(function (req, res) {
 
@@ -226,6 +306,152 @@ module.exports = function(app, express, io, upload, fs){
             res.json({cover_image: cover_image_name,document: document_name,status: "OK",error_code: 0,upload_type: type});
         });
     })
+
+    api.route('/upload_layouts').post(function (req, res) {
+
+        var image_name = "";
+        upload(req,res,function (err) {
+
+            // console.log(req.body);
+            if(err){
+
+                res.json({error_code: 1,err_desc: err});
+                return;
+            }
+            var field = req.files[0].mimetype;
+            console.log(field);
+            if(field.indexOf("image") >= 0){
+
+                image_name = req.files[0].filename;
+                console.log(req.files[0].filename);
+            }
+            res.json({cover_image: image_name,status: "OK",error_code: 0});
+        });
+    })
+
+    api.route('/update_upload_layout').post(function (req, res) {
+
+        var image_name="";
+        upload(req,res,function (err) {
+
+            // console.log(req.body);
+            if(err){
+
+                res.json({error_code: 1,err_desc: err});
+                return;
+            }
+            var field = req.files[0].fieldname;
+            console.log(req.body.old_images);
+
+            if(req.body.old_images && req.body.old_images !="") {
+
+                var files_count = req.body.old_images.length;
+                fs.unlink('./public/app/uploads/' + req.body.old_cover_photo, function (err) {
+
+                    if (err) {
+
+                        res.status(500).send(err);
+                        return;
+                    }
+
+                })
+            }
+            cover_photo = req.files[0].filename;
+            console.log(req.files[0].filename);
+            res.json({cover_photo: cover_photo,profile_picture: profile_picture,status: "OK",error_code: 0});
+        });
+
+    })
+
+    api.route('/save_layout').post(function(req,res){
+
+        var layout = new Layout({
+
+            customer: req.body.customer,
+            layout_type: req.body.layout,
+            category: req.body.category,
+            subcategory: req.body.subcategory,
+            expire_date: req.body.expire_date,
+            images: req.body.images,
+            video_url: req.body.video_url
+        });
+        layout.save(function(err,newLayout){
+
+            if(err){
+
+                res.send(err);
+                return;
+            }
+            io.emit('layouts', newLayout);
+            res.json({message: "success"});
+        })
+    })
+
+    api.route('/edit_layout').post(function (req, res) {
+
+        //console.log(req.formData)
+        //console.log(req.query.first_name);
+        var layout_id = req.query.layout_id;
+        console.log(layout_id);
+        Layout.findOne({layoutID: layout_id},function (err, layout) {
+
+            if(err){
+
+                res.send(err);
+                return;
+            }
+            layout.update({
+
+                customer: req.body.customer,
+                layout: req.body.layout,
+                category: req.body.category,
+                subcategory: req.body.subcategory,
+                expire_date: req.body.expire_date,
+                images: req.body.images,
+                video_url: req.body.video_url
+            },function (err) {
+
+                if(err){
+
+                    res.send(err);
+                    return;
+                }
+                res.json({message: "successful"});
+            })
+        })
+    })
+
+    api.get('/all_layouts',function (req, res) {
+
+        Layout.find({},function (err, layouts) {
+
+            if(err){
+
+                res.send(err);
+                return;
+            }
+            //    console.log(magazines);
+            res.json(layouts);
+        })
+    })
+
+    api.get('/layout_find',function(req, res){
+
+        console.log(req.query);
+        var layout_id = req.query.layout_id;
+        console.log(layout_id);
+        Layout.findOne({layoutID: layout_id},function(err,layout){
+
+            console.log(layout);
+            if(err){
+
+                res.send(err);
+                return;
+            }
+            res.json(layout);
+        })
+    })
+
 
     api.route('/upload_customers').post(function (req, res) {
 
