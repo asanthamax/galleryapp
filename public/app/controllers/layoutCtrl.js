@@ -202,7 +202,7 @@ angular.module('layoutCtrl',['ngFileUpload','layoutService'])
 
            Upload.upload({
 
-               url: 'http://localhost:3000/api/upload_layouts',
+               url: 'http://weddingglance.herokuapp.com/api/upload_layouts',
                headers: {'x-access-token' : token},
                data:{file: file}
            }).then(function (resp) {

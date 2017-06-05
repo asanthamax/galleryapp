@@ -42,7 +42,7 @@ angular.module('customerCtrl',['customerService'])
 
             Upload.upload({
 
-                url: 'http://localhost:3000/api/upload_customers',
+                url: 'http://weddingglance.herokuapp.com/api/upload_customers',
                 headers: {'x-access-token' : token},
                 data:{file: file,type: type}
             }).then(function (resp) {
@@ -262,7 +262,7 @@ angular.module('customerCtrl',['customerService'])
             console.log("file upload called");
             Upload.upload({
 
-                url: 'http://localhost:3000/api/update_customer_upload',
+                url: 'http://weddingglance.herokuapp.com/api/update_customer_upload',
                 headers: {'x-access-token' : token},
                 data:{file: file,old_cover_photo: vm.customer_data.old_cover_photo,old_profile_picture: vm.customer_data.old_profile_picture,type: type}
             }).then(function (resp) {

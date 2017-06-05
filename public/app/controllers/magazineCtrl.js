@@ -33,7 +33,7 @@ angular.module('magazineCtrl',['magazineService','ngFileUpload'])
 
             Upload.upload({
 
-                url: 'http://localhost:3000/api/upload_magazines',
+                url: 'http://weddingglance.herokuapp.com/api/upload_magazines',
                 headers: {'x-access-token' : token},
                 data:{file: file}
             }).then(function (resp) {
@@ -185,7 +185,7 @@ angular.module('magazineCtrl',['magazineService','ngFileUpload'])
 
             Upload.upload({
 
-                url: 'http://localhost:3000/api/update_magazines_upload',
+                url: 'http://weddingglance.herokuapp.com/api/update_magazines_upload',
                 headers: {'x-access-token' : token},
                 data:{file: file,old_image: vm.magazine_data.cover_image,old_document: vm.magazine_data.document}
             }).then(function (resp) {
