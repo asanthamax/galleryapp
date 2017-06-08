@@ -270,7 +270,7 @@ module.exports = function(app, express, io, upload, fs){
                 return;
             }
             //    console.log(magazines);
-            angular.forEach(magazines,function(mag) {
+            magazines.forEach(function(mag) {
 
                mag.cover_image = "https://weddingglance.herokuapp.com/app/uploads/"+mag.cover_image;
                mag.document = "https://weddingglance.herokuapp.com/app/uploads/"+mag.document;
