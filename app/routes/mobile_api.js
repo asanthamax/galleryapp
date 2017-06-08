@@ -288,7 +288,7 @@ module.exports = function(app, express, io, upload, fs){
                 res.send(err);
                 return;
             }
-            angular.forEach(customers,function(cus){
+            customers.forEach(function(cus){
 
                 cus.profile_picture = "https://weddingglance.herokuapp.com/app/uploads/"+cus.profile_picture;
                 cus.cover_photo = "https://weddingglance.herokuapp.com/app/uploads/"+cus.cover_photo;
@@ -306,7 +306,7 @@ module.exports = function(app, express, io, upload, fs){
                 res.send(err);
                 return;
             }
-            angular.forEach(customers,function(cus){
+            customers.forEach(function(cus){
 
                 cus.profile_picture = "https://weddingglance.herokuapp.com/app/uploads/"+cus.profile_picture;
                 cus.cover_photo = "https://weddingglance.herokuapp.com/app/uploads/"+cus.cover_photo;
