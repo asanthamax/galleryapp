@@ -7,7 +7,7 @@ var fs = require('fs');
 
 var app = express();
 
-var http = require('https').Server(app);
+var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var multer = require('multer');
 
