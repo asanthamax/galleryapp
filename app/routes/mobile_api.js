@@ -270,6 +270,11 @@ module.exports = function(app, express, io, upload, fs){
                 return;
             }
             //    console.log(magazines);
+            angular.forEach(magazines,function(mag) {
+
+               mag.cover_image = "https://weddingglance.herokuapp.com/app/uploads/"+mag.cover_image;
+               mag.document = "https://weddingglance.herokuapp.com/app/uploads/"+mag.document;
+            });
             res.json(magazines);
         })
     })
@@ -283,7 +288,30 @@ module.exports = function(app, express, io, upload, fs){
                 res.send(err);
                 return;
             }
+            angular.forEach(customers,function(cus){
+
+                cus.profile_picture = "https://weddingglance.herokuapp.com/app/uploads/"+cus.profile_picture;
+                cus.cover_photo = "https://weddingglance.herokuapp.com/app/uploads/"+cus.cover_photo;
+            })
             res.json(customers)
+        })
+    })
+
+    api.get('/get_customer',function(req,res){
+
+        Customer.find({subcategory: req.query.subcat},function(err,customers){
+
+            if(err){
+
+                res.send(err);
+                return;
+            }
+            angular.forEach(customers,function(cus){
+
+                cus.profile_picture = "https://weddingglance.herokuapp.com/app/uploads/"+cus.profile_picture;
+                cus.cover_photo = "https://weddingglance.herokuapp.com/app/uploads/"+cus.cover_photo;
+            });
+            res.json(customers);
         })
     })
 
@@ -304,6 +332,8 @@ module.exports = function(app, express, io, upload, fs){
                         res.send(err);
                     }else{
 
+                        customer.profile_picture = "https://weddingglance.herokuapp.com/app/uploads/"+customer.profile_picture;
+                        customer.cover_photo = "https://weddingglance.herokuapp.com/app/uploads/"+customer.cover_photo;
                         if(layout) {
                             customer.set('layout_profile',layout,{strict: false});
                         }

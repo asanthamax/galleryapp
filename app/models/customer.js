@@ -16,6 +16,7 @@ var customers = new Schema({
     twitterUrl: String,
     plusUrl: String,
     profile_picture: String,
+    web_site: String,
     cover_photo: String,
     description: String,
     layout: String,
