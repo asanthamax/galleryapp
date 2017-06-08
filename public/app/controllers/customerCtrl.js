@@ -14,9 +14,9 @@ angular.module('customerCtrl',['customerService'])
             Address: "",
             Email: "",
             Mobile: "",
-            fburl: "",
-            twitterurl: "",
-            plusurl: "",
+            facebookUrl: "",
+            twitterUrl: "",
+            plusUrl: "",
             layout: "",
             description: "",
             cover_photo: "",
@@ -89,9 +89,9 @@ angular.module('customerCtrl',['customerService'])
             requestData.address =  vm.formData.address;
             requestData.email =  vm.formData.email;
             requestData.mobile = vm.formData.mobile;
-            requestData.facebookUrl = vm.formData.fburl;
-            requestData.twitterUrl = vm.formData.twitterurl;
-            requestData.plusUrl =  vm.formData.plusurl;
+            requestData.facebookUrl = vm.formData.facebookUrl;
+            requestData.twitterUrl = vm.formData.twitterUrl;
+            requestData.plusUrl =  vm.formData.plusUrl;
             requestData.description = vm.formData.description;
             Customer.add_customer(requestData,token)
                 .then(function(data)

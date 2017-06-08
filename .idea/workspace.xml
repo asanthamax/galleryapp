@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f61dd9ed-b2b2-4e35-a6e4-adb1cdbdda3a" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/routes/api.js" afterPath="$PROJECT_DIR$/app/routes/api.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/app/controllers/customerCtrl.js" afterPath="$PROJECT_DIR$/public/app/controllers/customerCtrl.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/app/views/pages/editcustomer.html" afterPath="$PROJECT_DIR$/public/app/views/pages/editcustomer.html" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -23,11 +24,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="customerCtrl.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="customerCtrl.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/app/controllers/customerCtrl.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="528">
+            <state relative-caret-position="552">
               <caret line="93" column="55" lean-forward="true" selection-start-line="93" selection-start-column="55" selection-end-line="93" selection-end-column="55" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="editcustomer.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/app/views/pages/editcustomer.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="726">
+              <caret line="73" column="77" lean-forward="true" selection-start-line="73" selection-start-column="77" selection-end-line="73" selection-end-column="77" />
               <folding />
             </state>
           </provider>
@@ -65,10 +76,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="api.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="api.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/routes/api.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="570">
+            <state relative-caret-position="-354">
               <caret line="151" column="44" lean-forward="true" selection-start-line="151" selection-start-column="44" selection-end-line="151" selection-end-column="44" />
               <folding />
             </state>
@@ -154,7 +165,6 @@
         <option value="$PROJECT_DIR$/public/app/views/pages/modifymagazine.html" />
         <option value="$PROJECT_DIR$/public/app/views/pages/magazines.html" />
         <option value="$PROJECT_DIR$/app/models/customer.js" />
-        <option value="$PROJECT_DIR$/public/app/views/pages/editcustomer.html" />
         <option value="$PROJECT_DIR$/public/app/views/pages/modifycustomer.html" />
         <option value="$PROJECT_DIR$/public/app/views/pages/modifylayout.html" />
         <option value="$PROJECT_DIR$/public/app/views/pages/layouts.html" />
@@ -174,9 +184,10 @@
         <option value="$PROJECT_DIR$/public/app/views/index.html" />
         <option value="$PROJECT_DIR$/server.js" />
         <option value="$PROJECT_DIR$/public/app/controllers/magazineCtrl.js" />
-        <option value="$PROJECT_DIR$/public/app/controllers/customerCtrl.js" />
         <option value="$PROJECT_DIR$/public/app/controllers/layoutCtrl.js" />
         <option value="$PROJECT_DIR$/app/routes/api.js" />
+        <option value="$PROJECT_DIR$/public/app/views/pages/editcustomer.html" />
+        <option value="$PROJECT_DIR$/public/app/controllers/customerCtrl.js" />
       </list>
     </option>
   </component>
@@ -567,7 +578,7 @@
       <workItem from="1496466092663" duration="13562000" />
       <workItem from="1496596807127" duration="2364000" />
       <workItem from="1496679379760" duration="1394000" />
-      <workItem from="1496894819978" duration="2204000" />
+      <workItem from="1496894819978" duration="2515000" />
     </task>
     <task id="LOCAL-00001" summary="web app update">
       <created>1491237974844</created>
@@ -594,7 +605,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="211914000" />
+    <option name="totallyTimeSpent" value="212225000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -801,13 +812,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/app/views/pages/editcustomer.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="22">
-          <caret line="92" column="36" lean-forward="false" selection-start-line="92" selection-start-column="36" selection-end-line="92" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/models/layouts.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -986,18 +990,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/app/controllers/customerCtrl.js">
+    <entry file="file://$PROJECT_DIR$/app/routes/api.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="528">
-          <caret line="93" column="55" lean-forward="true" selection-start-line="93" selection-start-column="55" selection-end-line="93" selection-end-column="55" />
+        <state relative-caret-position="-354">
+          <caret line="151" column="44" lean-forward="true" selection-start-line="151" selection-start-column="44" selection-end-line="151" selection-end-column="44" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/routes/api.js">
+    <entry file="file://$PROJECT_DIR$/public/app/views/pages/editcustomer.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="570">
-          <caret line="151" column="44" lean-forward="true" selection-start-line="151" selection-start-column="44" selection-end-line="151" selection-end-column="44" />
+        <state relative-caret-position="726">
+          <caret line="73" column="77" lean-forward="true" selection-start-line="73" selection-start-column="77" selection-end-line="73" selection-end-column="77" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/app/controllers/customerCtrl.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="552">
+          <caret line="93" column="55" lean-forward="true" selection-start-line="93" selection-start-column="55" selection-end-line="93" selection-end-column="55" />
           <folding />
         </state>
       </provider>
