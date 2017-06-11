@@ -81,6 +81,7 @@ module.exports = function(app, express, io, upload, fs){
 
 	api.route('/login').post(function(req,res){
 
+	    console.log(req.headers);
 	   User.findOne({
 
 	       username: req.headers['username']
