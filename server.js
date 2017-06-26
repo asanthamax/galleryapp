@@ -47,8 +47,15 @@ app.use(function(req, res, next){
 
     res.header("Access-Control-Allow-Methods", "POST, PUT, OPTIONS, DELETE, GET");
     res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept,username,password,x-access-token");
-    next();
+    res.header("Access-Control-Allow-Headers", "Origin, Content-Type, Accept,username,password,x-access-token");
+    if ('OPTIONS' === req.method) {
+        //respond with 200
+        res.send(200);
+    }
+    else {
+        //move on
+        next();
+    }
 })
 
 //render all css and js files to html views
