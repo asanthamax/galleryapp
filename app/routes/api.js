@@ -394,7 +394,7 @@ module.exports = function(app, express, io, upload, fs){
 
         //console.log(req.formData)
         //console.log(req.query.first_name);
-        var layout_id = req.query.layout_id;
+        var layout_id = req.body.layoutID;
         console.log(layout_id);
         Layout.findOne({layoutID: layout_id},function (err, layout) {
 
@@ -421,6 +421,19 @@ module.exports = function(app, express, io, upload, fs){
                 }
                 res.json({message: "successful"});
             })
+        })
+    })
+
+    api.get('/delete_layout',function(req,res){
+
+        Layout.find({layoutID: req.query.layout_id}).remove().exec(function (err) {
+
+            if(err){
+
+                res.send(err);
+                return;
+            }
+            res.json({message: "success"});
         })
     })
 
@@ -658,6 +671,22 @@ module.exports = function(app, express, io, upload, fs){
                     res.send({message: "magazine deleted successfully"});
                 })
             })
+        })
+    })
+
+    api.route('/delete_layout_photo').get(function(req, res){
+
+        var file_name = req.query.file_name;
+        fs.unlink('./public/app/uploads/'+file_name,function(err){
+
+            if(err){
+
+                res.send(err);
+                return;
+            }else{
+
+                res.send({message: "image deleted successfully"});
+            }
         })
     })
 

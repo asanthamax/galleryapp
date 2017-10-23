@@ -19,6 +19,21 @@ angular.module('layoutService',[])
     return $http.get('/api/layout_find',{headers: {'x-access-token' : token},params: layoutData});
   };
 
+  layoutFactory.edit_layout = function(layoutData, token){
+
+     return $http.post('/api/edit_layout',layoutData,{headers: {'x-access-token' : token}});
+  };
+
+  layoutFactory.deleteLayoutImage = function(image, token){
+
+      return $http.get('/api/delete_layout_photo',{headers: {'x-access-token': token},params: image});
+  };
+
+  layoutFactory.delete_layout = function(layout_id,token){
+
+      return $http.get('/api/delete_layout',{headers: {'x-access-token': token},params: layout_id});
+  }
+
   return layoutFactory;
 })
 

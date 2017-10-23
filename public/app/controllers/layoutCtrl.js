@@ -274,7 +274,7 @@ angular.module('layoutCtrl',['ngFileUpload','layoutService'])
       }).catch(function (fallback) {
 
           console.log(fallback);
-      })
+      });
       vm.isOpen = true;
       vm.requestData = {
         customer : "",
@@ -419,6 +419,118 @@ angular.module('layoutCtrl',['ngFileUpload','layoutService'])
               $scope.customers = data.data;
               //console.log($scope.customers);
           });
+
+      vm.deleteImage = function (image) {
+
+          console.log(vm.layout_data.images);
+          console.log(image);
+          var index = vm.layout_data.images.indexOf(image);
+          console.log(index);
+          if(index > -1){
+
+              vm.layout_data.images.splice(index, 1);
+              vm.layout_data.images.splice(4, 1);
+              var img = {};
+              img.file_name = image;
+              Layout.deleteLayoutImage(img,token);
+              console.log("image deleted");
+          }
+      };
+
+      vm.save_layout_image = function (file, files_count) {
+
+          Upload.upload({
+
+              url: 'http://localhost:3000/api/upload_layouts',
+              headers: {'x-access-token': token},
+              data: {file: file}
+          }).then(function (resp) {
+
+              if (resp.data.error_code == 0) {
+
+                  console.log("'Success " + resp.config.data.file.name + ' uploaded. Response:');
+                  console.log(resp.data);
+                  console.log(resp.data.cover_image);
+                  vm.layout_data.images.push(resp.data.cover_image);
+                  console.log(vm.requestData);
+                  uploaded_images++
+                  if (uploaded_images == files_count) {
+
+                      vm.save_layout();
+                      uploaded_images = 0;
+                  }
+              }
+          }, function (resp) {
+
+              console.log("Error status:" + resp.status);
+              console.log("Error status:" + resp.status);
+          }, function (evt) {
+
+              console.log(evt);
+              var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+              console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
+              vm.progress = 'progress: ' + progressPercentage + '% '; // capture upload progress
+          });
+
+      };
+
+      vm.update_layout = function(){
+
+          vm.requestData.customer = (vm.formData.customer!=null) ? vm.formData.customer : vm.layout_data.customer;
+          vm.requestData.layout = (vm.formData.layout_type != null) ? vm.formData.layout_type : vm.layout_data.layout_type;
+          vm.requestData.category = (vm.formData.category.value != null) ? vm.formData.category.value : vm.layout_data.category.value;
+          vm.requestData.subcategory = (vm.formData.subcategory.value != null) ? vm.formData.subcategory.value : vm.layout_data.subcategory.value;
+          vm.requestData.layoutID = vm.layout_data.layoutID;
+          if(vm.formData.expire_date!=null)
+            var date_con = new Date(vm.formData.expire_date.toISOString());
+          else
+            var date_con = vm.layout_data.expire_date;
+          vm.requestData.expire_date = date_con;
+          vm.requestData.video_url = (vm.formData.video != null) ? vm.formData.video : vm.layout_data.video_url;
+          var fil = document.getElementById('nbr_images');
+          var files_count = fil.files.length;
+          console.log("files count:"+files_count);
+          if(files_count!=0) {
+              for (var i = 0; i < files_count; i++) {
+
+                  vm.save_layout_image(fil.files[i], files_count);
+              }
+          }else{
+              vm.requestData.images = vm.layout_data.images;
+              vm.save_layout();
+          }
+          console.log(vm.formData);
+          console.log("Uploaded Images:"+uploaded_images);
+         // console.log("files count:"+files_count);
+      }
+
+      vm.save_layout = function(){
+
+          Layout.edit_layout(vm.requestData, token).then(function (data) {
+
+              vm.message = data.data.message;
+              console.log(vm.requestData);
+              console.log(data);
+              $location.url('/layouts');
+          }).catch(function (log) {
+
+              console.log(log);
+          })
+      };
+
+      vm.delete_layout = function(){
+
+        var layout ={};
+        layout.layout_id = vm.layout_data.layoutID;
+        Layout.delete_layout(layout,token).then(function(data){
+
+            vm.message = data.data.message;
+            $location.url('/layouts');
+        }).catch(function(log){
+
+            console.log(log);
+        });
+      }
 
     })
 

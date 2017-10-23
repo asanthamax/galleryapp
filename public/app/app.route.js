@@ -63,6 +63,14 @@ angular.module('appRoute',['ngRoute'])
 
 			templateUrl: 'app/views/pages/editlayout.html'
 		})
+		.when('/edit_layout/:id/:status',{
+
+			templateUrl: 'app/views/pages/modifylayout.html'
+		})
+		.when('/remove_layout/:id/:status',{
+
+			templateUrl: 'app/views/pages/deletelayout.html'
+		})
         .when('/add_customer',{
 
             templateUrl: 'app/views/pages/editcustomer.html'
