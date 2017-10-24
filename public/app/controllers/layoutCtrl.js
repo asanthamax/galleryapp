@@ -202,7 +202,7 @@ angular.module('layoutCtrl',['ngFileUpload','layoutService'])
 
            Upload.upload({
 
-               url: 'https://weddingglance.herokuapp.com/api/upload_layouts',
+               url: 'http://infinityappslk.com/api/upload_layouts',
                headers: {'x-access-token' : token},
                data:{file: file}
            }).then(function (resp) {
@@ -274,7 +274,7 @@ angular.module('layoutCtrl',['ngFileUpload','layoutService'])
       }).catch(function (fallback) {
 
           console.log(fallback);
-      });
+      })
       vm.isOpen = true;
       vm.requestData = {
         customer : "",
@@ -419,8 +419,8 @@ angular.module('layoutCtrl',['ngFileUpload','layoutService'])
               $scope.customers = data.data;
               //console.log($scope.customers);
           });
-
-      vm.deleteImage = function (image) {
+		  
+	   vm.deleteImage = function (image) {
 
           console.log(vm.layout_data.images);
           console.log(image);
@@ -456,6 +456,7 @@ angular.module('layoutCtrl',['ngFileUpload','layoutService'])
                   uploaded_images++
                   if (uploaded_images == files_count) {
 
+                      vm.requestData.images = vm.layout_data.images;
                       vm.save_layout();
                       uploaded_images = 0;
                   }
@@ -489,19 +490,14 @@ angular.module('layoutCtrl',['ngFileUpload','layoutService'])
           vm.requestData.video_url = (vm.formData.video != null) ? vm.formData.video : vm.layout_data.video_url;
           var fil = document.getElementById('nbr_images');
           var files_count = fil.files.length;
-          console.log("files count:"+files_count);
-          if(files_count!=0) {
-              for (var i = 0; i < files_count; i++) {
+          for(var i=0;i<files_count;i++){
 
-                  vm.save_layout_image(fil.files[i], files_count);
-              }
-          }else{
-              vm.requestData.images = vm.layout_data.images;
-              vm.save_layout();
+              vm.save_layout_image(fil.files[i],files_count);
           }
           console.log(vm.formData);
+		  vm.save_layout();
           console.log("Uploaded Images:"+uploaded_images);
-         // console.log("files count:"+files_count);
+          console.log("files count:"+files_count);
       }
 
       vm.save_layout = function(){
@@ -530,7 +526,7 @@ angular.module('layoutCtrl',['ngFileUpload','layoutService'])
 
             console.log(log);
         });
-      }
+      }	  
 
     })
 

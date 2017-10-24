@@ -19,6 +19,7 @@ angular.module('customerService',[])
 
     customerFactory.edit_customer = function(customerData,token){
 
+		console.log('x-access-token:'+token);
         return $http.post('/api/edit_customer', customerData,{headers: {'x-access-token' : token}});
     };
 

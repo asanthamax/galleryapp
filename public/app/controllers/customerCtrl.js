@@ -43,7 +43,7 @@ angular.module('customerCtrl',['customerService'])
 
             Upload.upload({
 
-                url: 'https://weddingglance.herokuapp.com/api/upload_customers',
+                url: 'http://infinityappslk.com/api/upload_customers',
                 headers: {'x-access-token' : token},
                 data:{file: file,type: type}
             }).then(function (resp) {
@@ -219,6 +219,8 @@ angular.module('customerCtrl',['customerService'])
                 if(!vm.cover_photo && !vm.profile_picture){
 
                     console.log("not profile or cover photo");
+					//var token1 = localStorage.getItem('access_web_token').toString();
+					//alert(token1);
                    // console.log(vm.customer_edit);
                   //  vm.customer_edit.facebookUrl = vm.customer_edit.fburl;
                   //  vm.customer_edit.twitterUrl = vm.customer_edit.twitterurl;
@@ -246,7 +248,7 @@ angular.module('customerCtrl',['customerService'])
                             vm.formData = '';
                             vm.message = data.data.message;
                             console.log(vm.message);
-                            $location.url('/magazines');
+                            $location.url('/customers');
                         }
                     )
                     .catch(function (fallback) {
@@ -264,7 +266,7 @@ angular.module('customerCtrl',['customerService'])
             console.log("file upload called");
             Upload.upload({
 
-                url: 'https://weddingglance.herokuapp.com/api/update_customer_upload',
+                url: 'http://infinityappslk.com/api/update_customer_upload',
                 headers: {'x-access-token' : token},
                 data:{file: file,old_cover_photo: vm.customer_data.old_cover_photo,old_profile_picture: vm.customer_data.old_profile_picture,type: type}
             }).then(function (resp) {
@@ -284,7 +286,7 @@ angular.module('customerCtrl',['customerService'])
                     if(status_upload_cover_edit || status_upload_profile_edit){
 
                         console.log(vm.customer_edit);
-                        Customer.edit_customer(vm.customer_edit)
+                        Customer.edit_customer(vm.customer_edit,token)
                             .then(function(data)
                                 {
                                     vm.formData = '';

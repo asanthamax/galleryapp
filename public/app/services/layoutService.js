@@ -18,7 +18,7 @@ angular.module('layoutService',[])
 
     return $http.get('/api/layout_find',{headers: {'x-access-token' : token},params: layoutData});
   };
-
+  
   layoutFactory.edit_layout = function(layoutData, token){
 
      return $http.post('/api/edit_layout',layoutData,{headers: {'x-access-token' : token}});
