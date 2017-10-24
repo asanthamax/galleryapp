@@ -185,7 +185,7 @@
                     <div class="fileinput fileinput-new" data-provides="fileinput">
                         <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;">
 
-                            <img style="width:200px;height: 150px" ngf-thumbnail="customer.profile_picture || 'app/uploads/{{customer.customer_data.profile_picture}}'"/>
+                            <img style="width:200px;height: 150px" ngf-thumbnail="customer.profile_picture || 'app/uploads/{{customer.customer_data.profile_picture}}'" src="app/uploads/{{customer.customer_data.profile_picture}}"/>
                         </div>
                         <div>
                                 <span class="btn btn-default btn-file">
@@ -211,10 +211,10 @@
                     </div>
                 </div>
             </div>
-            <input type="hidden" name="old_cover_photo" ng-model="customer.formData.old_cover_photo" ng-value="customer.customer_data.cover_photo">
-            <input type="hidden" name="old_profile_picture" ng-model="customer.formData.old_profile_picture" ng-value="customer.customer_data.profile_picture">
-            <input type="hidden" name="cus_id" ng-model="customer.formData.cus_id" ng-value="customer.customer_data.cus_id">
-            <input type="hidden" name="status" ng-model="customer.formData.status" ng-value="customer.customer_data.status">
+            <input type="hidden" name="old_cover_photo" ng-model="customer.formData.old_cover_photo" ng-value="{{customer.customer_data.cover_photo}}" value="{{customer.customer_data.cover_photo}}">
+            <input type="hidden" name="old_profile_picture" ng-model="customer.formData.old_profile_picture" ng-value="{{customer.customer_data.profile_picture}}" value="{{customer.customer_data.profile_picture}}">
+            <input type="hidden" name="cus_id" ng-model="customer.formData.cus_id" ng-value="{{customer.customer_data.cus_id}}" value="{{customer.customer_data.cus_id}}">
+            <input type="hidden" name="status" ng-model="customer.formData.status" ng-value="{{customer.customer_data.status}}" value="{{customer.customer_data.status}}">
             <div class="col-sm-offset-3 col-sm-6">
 
                 <button class="btn btn-primary">{{customer.button_text}}</button>
