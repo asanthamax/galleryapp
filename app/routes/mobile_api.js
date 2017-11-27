@@ -312,24 +312,26 @@ module.exports = function(app, express, io, upload, fs){
             var all_count = customers.length;
             var track_count = 0;
             var finish_status = false;
-            customers.forEach(function(cus){
+            for(var i=0;i<customers.length;i++){
+            //customers.forEach(function(cus){
                 
                // console.log(cus);
-                Customer.findOne({customerID: cus.customer},function(err,cust){
+                Customer.findOne({customerID: customers[i]},function(err,cust){
                 
                    cust.profile_picture = "https://weddingglance.herokuapp.com/app/uploads/"+cust.profile_picture;
                    cust.cover_photo = "https://weddingglance.herokuapp.com/app/uploads/"+cust.cover_photo;
                    layoutCustomers.push(cust);
-                   track_count++; 
                    //console.log(cust); 
                 });
+               /* track_count++; 
                 console.log(layoutCustomers);
                 if(track_count==all_count){
                     finish_status = true;
-                }
-            });
-            if(finish_status)
-                res.json(layoutCustomers);
+                }*/
+           // });
+            }    
+           // if(finish_status)
+              res.json(layoutCustomers);
         })
     })
 
