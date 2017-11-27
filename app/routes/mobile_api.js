@@ -316,7 +316,7 @@ module.exports = function(app, express, io, upload, fs){
             //customers.forEach(function(cus){
                 
                // console.log(cus);
-                Customer.findOne({customerID: customers[i]},function(err,cust){
+                Customer.findOne({customerID: customers[i].customer},function(err,cust){
                 
                    cust.profile_picture = "https://weddingglance.herokuapp.com/app/uploads/"+cust.profile_picture;
                    cust.cover_photo = "https://weddingglance.herokuapp.com/app/uploads/"+cust.cover_photo;
