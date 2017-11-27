@@ -310,7 +310,6 @@ module.exports = function(app, express, io, upload, fs){
             }
             var layoutCustomers = [];
             var all_count = customers.length;
-            var track_count = 0;
             var finish_status = false;
             for(var i=0;i<customers.length;i++){
             //customers.forEach(function(cus){
@@ -324,13 +323,13 @@ module.exports = function(app, express, io, upload, fs){
                    //console.log(cust); 
                 });
                /* track_count++; 
-                console.log(layoutCustomers);
-                if(track_count==all_count){
+                console.log(layoutCustomers);*/
+                if(i==(all_count-1)){
                     finish_status = true;
-                }*/
+                }
            // });
             }    
-           // if(finish_status)
+            if(finish_status)
               res.json(layoutCustomers);
         })
     })
