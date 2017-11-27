@@ -299,7 +299,7 @@ module.exports = function(app, express, io, upload, fs){
 
     api.get('/get_customer',function(req,res){
 
-        Customer.find({subcategory: req.query.subcat},function(err,customers){
+        Customer.find({subcategory: req.query.category},function(err,customers){
 
             if(err){
 
