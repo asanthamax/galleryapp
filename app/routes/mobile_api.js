@@ -319,11 +319,11 @@ module.exports = function(app, express, io, upload, fs){
                 
                    cust.profile_picture = "https://weddingglance.herokuapp.com/app/uploads/"+cust.profile_picture;
                    cust.cover_photo = "https://weddingglance.herokuapp.com/app/uploads/"+cust.cover_photo;
-                   layoutCustomers.push(cust); 
+                   layoutCustomers.push(cust);
+                   track_count++; 
                    //console.log(cust); 
                 });
                 console.log(layoutCustomers);
-                track_count++;
                 if(track_count==all_count){
                     finish_status = true;
                 }
