@@ -299,6 +299,8 @@ module.exports = function(app, express, io, upload, fs){
 
     api.get('/get_customer',function(req,res){
 
+        console.log(req.query);
+        console.log(req.query.category);
         Layout.find({subcategory: req.query.category},function(err,customers){
 
             if(err){
