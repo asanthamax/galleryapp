@@ -299,19 +299,24 @@ module.exports = function(app, express, io, upload, fs){
 
     api.get('/get_customer',function(req,res){
 
-        Customer.find({subcategory: req.query.subcat},function(err,customers){
+        Layout.find({subcategory: req.query.subcat},function(err,customers){
 
             if(err){
 
                 res.send(err);
                 return;
             }
+            var layoutCustomers = [];
             customers.forEach(function(cus){
-
-                cus.profile_picture = "https://weddingglance.herokuapp.com/app/uploads/"+cus.profile_picture;
-                cus.cover_photo = "https://weddingglance.herokuapp.com/app/uploads/"+cus.cover_photo;
+                
+                Customer.findOne({customerID: cus.customer},function(err,cust){
+                
+                   cust.profile_picture = "https://weddingglance.herokuapp.com/app/uploads/"+cust.profile_picture;
+                   cust.cover_photo = "https://weddingglance.herokuapp.com/app/uploads/"+cust.cover_photo;
+                   layoutCustomers.push(cust); 
+                });
             });
-            res.json(customers);
+            res.json(layoutCustomers);
         })
     })
 
