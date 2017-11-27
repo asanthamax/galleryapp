@@ -314,13 +314,13 @@ module.exports = function(app, express, io, upload, fs){
             var finish_status = false;
             customers.forEach(function(cus){
                 
-                console.log(cus);
+               // console.log(cus);
                 Customer.findOne({customerID: cus.customer},function(err,cust){
                 
                    cust.profile_picture = "https://weddingglance.herokuapp.com/app/uploads/"+cust.profile_picture;
                    cust.cover_photo = "https://weddingglance.herokuapp.com/app/uploads/"+cust.cover_photo;
                    layoutCustomers.push(cust); 
-                   console.log(cust); 
+                   //console.log(cust); 
                 });
                 console.log(layoutCustomers);
                 track_count++;
