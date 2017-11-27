@@ -299,8 +299,8 @@ module.exports = function(app, express, io, upload, fs){
 
     api.get('/get_customer',function(req,res){
 
-        console.log(req.query);
-        console.log(req.query.category);
+        //console.log(req.query);
+        //console.log(req.query.category);
         Layout.find({subcategory: req.query.category},function(err,customers){
 
             if(err){
@@ -317,6 +317,7 @@ module.exports = function(app, express, io, upload, fs){
                    cust.cover_photo = "https://weddingglance.herokuapp.com/app/uploads/"+cust.cover_photo;
                    layoutCustomers.push(cust); 
                 });
+                console.log(layoutCustomers);
             });
             res.json(layoutCustomers);
         })
