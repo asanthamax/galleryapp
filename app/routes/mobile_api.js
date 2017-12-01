@@ -315,9 +315,9 @@ module.exports = function(app, express, io, upload, fs){
         })*/
 
         var customers = []
-        var count_tracker = 1;
         var total_track = 0;
-        Layout.find({subcategory: req.query.subcat},function(err,layouts){
+        console.log(req.query.category);
+        Layout.find({subcategory: req.query.category},function(err,layouts){
 
             if(err){
 
@@ -325,25 +325,30 @@ module.exports = function(app, express, io, upload, fs){
             }else{
 
                 total_track = layouts.length
-                layouts.forEach(function(layout) {
+                console.log("Total track:"+total_track)
+                console.log(layouts)
+                layouts.forEach(function(layout,index) {
 
-                    Customer.find({customerID: layout.customer},function(err, customer) {
 
-                        if(err){
+                        Customer.find({customerID: layout.customer},function(err, customer) {
 
-                            res.send(err)
-                        }else{
-                            customer.profile_picture = "https://weddingglance.herokuapp.com/app/uploads/" + customer.profile_picture
-                            customer.cover_photo = "https://weddingglance.herokuapp.com/app/uploads/" + customer.cover_photo
-                            customers.push(customer)
-                            count_tracker++
-                        }
-                    })
+                            if(err){
+
+                                res.send(err)
+                            }else{
+                                customer.profile_picture = "https://weddingglance.herokuapp.com/app/uploads/" + customer.profile_picture
+                                customer.cover_photo = "https://weddingglance.herokuapp.com/app/uploads/" + customer.cover_photo
+                                customers.push(customer[0])
+                                if(index==(total_track-1)){
+
+                                    res.json(customers);
+                                }
+                            }
+
+                        })
+
                 })
-                if(count_tracker==total_track){
 
-                    res.json(customers);
-                }
             }
         })
     })
