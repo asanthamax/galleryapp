@@ -314,35 +314,37 @@ module.exports = function(app, express, io, upload, fs){
             res.json(customers);
         })*/
 
-        Customer.aggregate([{
-
-                $lookup: {
-
-                    from: 'layoutschemas',
-                    localField: 'customerID',
-                    foreignField: 'customer',
-                    as: 'layouts'
-                }
-            },
-            {
-                $match: {
-
-                    'layouts.subcategory' : req.query.subcat
-                }
-            }
-        ]).exec(function(err,customers){
+        var customers = []
+        var count_tracker = 1;
+        var total_track = 0;
+        Layout.find({subcategory: req.query.subcat},function(err,layouts){
 
             if(err){
 
                 res.send(err);
-                return;
-            }
-            customers.forEach(function(cus){
+            }else{
 
-                cus.profile_picture = "https://weddingglance.herokuapp.com/app/uploads/"+cus.profile_picture;
-                cus.cover_photo = "https://weddingglance.herokuapp.com/app/uploads/"+cus.cover_photo;
-            });
-            res.json(customers);
+                total_track = layouts.length
+                layouts.forEach(function(layout) {
+
+                    Customer.find({customerID: layout.customer},function(err, customer) {
+
+                        if(err){
+
+                            res.send(err)
+                        }else{
+                            customer.profile_picture = "https://weddingglance.herokuapp.com/app/uploads/" + customer.profile_picture
+                            customer.cover_photo = "https://weddingglance.herokuapp.com/app/uploads/" + customer.cover_photo
+                            customers.push(customer)
+                            count_tracker++
+                        }
+                    })
+                })
+                if(count_tracker==total_track){
+
+                    res.json(customers);
+                }
+            }
         })
     })
 
