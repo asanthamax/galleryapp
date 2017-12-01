@@ -299,38 +299,50 @@ module.exports = function(app, express, io, upload, fs){
 
     api.get('/get_customer',function(req,res){
 
-        //console.log(req.query);
-        //console.log(req.query.category);
-        Layout.find({subcategory: req.query.category},function(err,customers){
+        /* Customer.find({subcategory: req.query.subcat},function(err,customers){
 
             if(err){
 
                 res.send(err);
                 return;
             }
-            var layoutCustomers = [];
-            var all_count = customers.length;
-            var finish_status = false;
-            for(var i=0;i<customers.length;i++){
-            //customers.forEach(function(cus){
-                
-               // console.log(cus);
-                Customer.findOne({customerID: customers[i].customer},function(err,cust){
-                
-                   cust.profile_picture = "https://weddingglance.herokuapp.com/app/uploads/"+cust.profile_picture;
-                   cust.cover_photo = "https://weddingglance.herokuapp.com/app/uploads/"+cust.cover_photo;
-                   layoutCustomers.push(cust);
-                   //console.log(cust); 
-                });
-               /* track_count++; 
-                console.log(layoutCustomers);*/
-                if(i==(all_count-1)){
-                    finish_status = true;
+            customers.forEach(function(cus){
+
+                cus.profile_picture = "https://weddingglance.herokuapp.com/app/uploads/"+cus.profile_picture;
+                cus.cover_photo = "https://weddingglance.herokuapp.com/app/uploads/"+cus.cover_photo;
+            });
+            res.json(customers);
+        })*/
+
+        Customer.aggregate([{
+
+                $lookup: {
+
+                    from: 'layoutschemas',
+                    localField: 'customerID',
+                    foreignField: 'customer',
+                    as: 'layouts'
                 }
-           // });
-            }    
-            if(finish_status)
-              res.json(layoutCustomers);
+            },
+            {
+                $match: {
+
+                    'layouts.subcategory' : req.query.subcat
+                }
+            }
+        ]).exec(function(err,customers){
+
+            if(err){
+
+                res.send(err);
+                return;
+            }
+            customers.forEach(function(cus){
+
+                cus.profile_picture = "https://weddingglance.herokuapp.com/app/uploads/"+cus.profile_picture;
+                cus.cover_photo = "https://weddingglance.herokuapp.com/app/uploads/"+cus.cover_photo;
+            });
+            res.json(customers);
         })
     })
 
