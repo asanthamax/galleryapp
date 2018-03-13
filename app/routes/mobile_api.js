@@ -336,8 +336,8 @@ module.exports = function(app, express, io, upload, fs){
 
                                 res.send(err)
                             }else{
-                                customer.profile_picture = "https://weddingglance.herokuapp.com/app/uploads/" + customer.profile_picture
-                                customer.cover_photo = "https://weddingglance.herokuapp.com/app/uploads/" + customer.cover_photo
+                                customer[0].profile_picture = "https://weddingglance.herokuapp.com/app/uploads/" + customer[0].profile_picture
+                                customer[0].cover_photo = "https://weddingglance.herokuapp.com/app/uploads/" + customer[0].cover_photo
                                 customers.push(customer[0])
                                 if(index==(total_track-1)){
 
